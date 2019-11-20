@@ -6,7 +6,7 @@ import './App.css';
 
 function App() {
   const [countries, setCountries] = useState([]);
-  const [region, setRegion] = useState('asia');
+  const [region, setRegion] = useState('africa');
   // const [url, setUrl] = useState()
 
   useEffect(() => {
@@ -23,7 +23,7 @@ function App() {
     <div className="App">
       <h1>Oh the places I've been!</h1>
       <Form>
-        <fieldset>
+        {/* <fieldset> */}
           <Form.Group onChange={(event) => setRegion(event.target.id)}>
           <Form.Label>Regions</Form.Label>
             <Form.Check as="input"
@@ -31,7 +31,7 @@ function App() {
               id="africa"
               label="Africa"
               name='regionRadios'
-              checked={region === "africa"}
+              defaultChecked
               />
           
             <Form.Check as="input"
@@ -46,7 +46,6 @@ function App() {
               id="asia"
               label="Asia"
               name='regionRadios'
-              checked={region === "asia"}
             />
 
             <Form.Check as="input"
@@ -63,7 +62,7 @@ function App() {
               name='regionRadios'
             />
         </Form.Group>
-        </fieldset>
+        {/* </fieldset> */}
       </Form>
       
         {countries.map(country => (
