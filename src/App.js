@@ -6,55 +6,59 @@ import './App.css';
 
 function App() {
   const [countries, setCountries] = useState([]);
+  const [region, setRegion] = useState('asia');
+  // const [url, setUrl] = useState()
 
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios(
-        'https://restcountries.eu/rest/v2/regionalbloc/eu'
+        `https://restcountries.eu/rest/v2/region/${region}`
       );
       setCountries(result.data);
     };
     fetchData();
-  }, []);
+  }, [region]);
 
   return (
     <div className="App">
       <h1>Oh the places I've been!</h1>
       <Form>
         <fieldset>
-        <Form.Group>
+          <Form.Group onChange={(event) => setRegion(event.target.id)}>
           <Form.Label>Regions</Form.Label>
             <Form.Check as="input"
               type="radio"
-              id="africaRadio"
+              id="africa"
               label="Africa"
               name='regionRadios'
+              checked={region === "africa"}
               />
           
             <Form.Check as="input"
               type="radio"
-              id="americasRadio"
+              id="americas"
               label="Americas"
               name='regionRadios'
             />
 
             <Form.Check as="input"
               type="radio"
-              id="asiaRadio"
+              id="asia"
               label="Asia"
               name='regionRadios'
+              checked={region === "asia"}
             />
 
             <Form.Check as="input"
               type="radio"
-              id="europeRadio"
+              id="europe"
               label="Europe"
               name='regionRadios'
             />
 
             <Form.Check as="input"
               type="radio"
-              id="Oceania"
+              id="oceania"
               label="Oceania"
               name='regionRadios'
             />
@@ -63,9 +67,7 @@ function App() {
       </Form>
       
         {countries.map(country => (
-          <li key={country.name}>
-            <p>{country.name}</p>
-          </li>
+            <p key={country.name}>{country.name}</p>
         ))}
     </div>
   );
