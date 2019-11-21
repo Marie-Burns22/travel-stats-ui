@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import axios from 'axios';
+import MyTravelStats from './MyTravelStats';
 // import './App.css';
 
 function App() {
@@ -83,6 +84,8 @@ function App() {
             ))}
           </Form.Control>
         </Form.Group>
+
+        {/* Need to add check for duplicate countries when either button is clicked. */}
         <Button 
           variant='info' 
           onClick={() => setMyCountries([...myCountries, selectedCountry])}>Add country to places I have been 
@@ -104,6 +107,7 @@ function App() {
         {wantToVisit.map(country => (
           <p key={country.name}>{country.name}</p>
         ))}
+        <MyTravelStats myCountries={myCountries} />
     </div>
   );
 }
