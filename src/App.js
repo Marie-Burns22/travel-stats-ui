@@ -30,9 +30,17 @@ function App() {
     setSelectedCountry(country);
   };
 
-  const addToMyCountries = () => {
-    setMyCountries(myCountries => [...myCountries, selectedCountry])
+  // Add check to only add the language to the list if it is not already in the array.
+  const addToLanguages = (selectedCountry) => {
+    console.log(selectedCountry.name)
+    selectedCountry.languages.map(language => (
+      setLanguages(languages => [...languages, language.name])
+    ))
+  }
 
+  const addToMyCountries = () => {
+    setMyCountries(myCountries => [...myCountries, selectedCountry]);
+    addToLanguages(selectedCountry);
   }
 
   return (

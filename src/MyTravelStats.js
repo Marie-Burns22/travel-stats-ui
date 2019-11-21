@@ -2,18 +2,7 @@ import React, {Fragment} from 'react';
 
 
 export default function MyTravelStats(props){
-    // const [languages, setLanguages] = useState([]);
-
-    // useEffect(() => {
-    //     function addLanguages(languages) {
-    //         props.myCountries.map(country => (
-    //         country.languages.map(language => (
-    //             setLanguages(languages => [...languages, language.name])
-    //             ))
-    //         ))
-    //     }
-    // }, [props.myCountries])
-
+   
     return(
         <Fragment>
             <h1>My Travel Stats</h1>
