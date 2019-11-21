@@ -10,6 +10,7 @@ function App() {
   const [myCountries, setMyCountries] = useState([]);
   const [wantToVisit, setWantToVisit] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState({});
+  const [languages, setLanguages] = useState([]);
 
   // useEffect hook calls API t0 get countries for a specific region based on region selected by user in form. The selection set state for region and the API call is triggered by changes to the region state. 
   useEffect(() => {
@@ -29,9 +30,15 @@ function App() {
     setSelectedCountry(country);
   };
 
+  const addToMyCountries = () => {
+    setMyCountries(myCountries => [...myCountries, selectedCountry])
+
+  }
+
   return (
     <div className="App">
       <h1>Oh the places I've been!</h1>
+
       {/* Radio buttons to select region which triggers API call (uses region name in the URL) */}
       <Form>
           <Form.Group onChange={(event) => setRegion(event.target.id)}>
@@ -88,7 +95,7 @@ function App() {
         {/* Need to add check for duplicate countries when either button is clicked. */}
         <Button 
           variant='info' 
-          onClick={() => setMyCountries([...myCountries, selectedCountry])}>Add country to places I have been 
+          onClick={addToMyCountries}>Add country to places I have been 
         </Button>
 
         <Button
@@ -107,7 +114,7 @@ function App() {
         {wantToVisit.map(country => (
           <p key={country.name}>{country.name}</p>
         ))}
-        <MyTravelStats myCountries={myCountries} />
+        <MyTravelStats myCountries={myCountries} languages={languages} wantCount={wantToVisit.length}/>
     </div>
   );
 }
