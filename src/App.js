@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Button } from 'react-bootstrap';
+import { Form, Button, Container, Row, Col, Jumbotron, Card } from 'react-bootstrap';
 import axios from 'axios';
 import MyTravelStats from './MyTravelStats';
 import MyCountriesList from './MyCountriesList';
@@ -46,79 +46,101 @@ function App() {
   }
 
   return (
-    <div className="App container">
-      <h1>Oh the places I've been!</h1>
+    <div>
+      <Jumbotron fluid>
+        <Container>
+          <h1>Oh the places I've been!</h1>
+          <p>
+            So many places to visit in the world. Where have you been? Where do you want to go?
+          </p>
+        </Container>
+      </Jumbotron>
+        
+      <Container>
+        {/* Radio buttons to select region which triggers API call (uses region name in the URL) */}
+        <Row>
+          <Col>
+            <Form>
+              <Card>
+                <Card.Header>Select a Region</Card.Header>
+                <Form.Group onChange={(event) => setRegion(event.target.id)}>
+                  <Card.Body>
+                    <Form.Check as="input"
+                      type="radio"
+                      id="africa"
+                      label="Africa"
+                      name='regionRadios'
+                      defaultChecked
+                      />
+                  
+                    <Form.Check as="input"
+                      type="radio"
+                      id="americas"
+                      label="Americas"
+                      name='regionRadios'
+                    />
 
-      {/* Radio buttons to select region which triggers API call (uses region name in the URL) */}
-      <Form>
-          <Form.Group onChange={(event) => setRegion(event.target.id)}>
-          <Form.Label as="h3">Select a Region</Form.Label>
-            <Form.Check as="input"
-              type="radio"
-              id="africa"
-              label="Africa"
-              name='regionRadios'
-              defaultChecked
-              />
-          
-            <Form.Check as="input"
-              type="radio"
-              id="americas"
-              label="Americas"
-              name='regionRadios'
-            />
+                    <Form.Check as="input"
+                      type="radio"
+                      id="asia"
+                      label="Asia"
+                      name='regionRadios'
+                    />
 
-            <Form.Check as="input"
-              type="radio"
-              id="asia"
-              label="Asia"
-              name='regionRadios'
-            />
+                    <Form.Check as="input"
+                      type="radio"
+                      id="europe"
+                      label="Europe"
+                      name='regionRadios'
+                    />
 
-            <Form.Check as="input"
-              type="radio"
-              id="europe"
-              label="Europe"
-              name='regionRadios'
-            />
+                    <Form.Check as="input"
+                      type="radio"
+                      id="oceania"
+                      label="Oceania"
+                      name='regionRadios'
+                    />
+                </Card.Body>
+              </Form.Group>
+            </Card>
+            <br />
+          </Form>
 
-            <Form.Check as="input"
-              type="radio"
-              id="oceania"
-              label="Oceania"
-              name='regionRadios'
-            />
-        </Form.Group>
-      </Form>
-      
-      {/* Selection of countries rendered based on region selection. Selected country is saved to state as selectedCountry. Buttons use selectedCountry state to add country object to one of two lists. */}
-      <Form>
-        <Form.Group controlId="countrySelect">
-          <Form.Label>Select Country</Form.Label>
-          <Form.Control as="select" onChange={handleChange} multiple>
-            {countries.map(country => (
-              <option key={country.name} name='country' value={country.name} >{country.name}</option>
-            ))}
-          </Form.Control>
-        </Form.Group>
+          <Form>
+            <Card>
+              <Card.Header>Select a Country</Card.Header>
+              <Form.Group controlId="countrySelect">
 
-        {/* Need to add check for duplicate countries when either button is clicked. */}
-        <Button 
-          variant='info' 
-          onClick={addToMyCountries}>Add country to places I have been 
-        </Button>
+                  <Form.Control as="select" onChange={handleChange}>
+                    {countries.map(country => (
+                      <option key={country.name} name='country' value={country.name} >{country.name}</option>
+                    ))}
+                  </Form.Control>
 
-        <Button
-          variant='success'
-          onClick={() => setWantToVisit([...wantToVisit, selectedCountry])}>Add country to places I want to go
-        </Button>
+              </Form.Group>
+            </Card>
+            {/* Need to add check for duplicate countries when either button is clicked. */}
 
-      </Form>
-      
-      <MyCountriesList myCountries={myCountries} wantToVisit={wantToVisit} />
-      <MyTravelStats myCountries={myCountries} languages={languages} wantCount={wantToVisit.length}/>
-      <CountryInfo country={selectedCountry} />
+          </Form>
+          </Col>
+          {/* Selection of countries rendered based on region selection. Selected country is saved to state as selectedCountry. Buttons use selectedCountry state to add country object to one of two lists. */}
+          <Col>
+            <CountryInfo country={selectedCountry} />
+          </Col>
+        </Row>
+        
+            <Button 
+              variant='info' 
+              onClick={addToMyCountries}>Add country to places I have been 
+            </Button>
 
+            <Button
+              variant='success'
+              onClick={() => setWantToVisit([...wantToVisit, selectedCountry])}>Add country to places I want to go
+            </Button>
+        <MyCountriesList myCountries={myCountries} wantToVisit={wantToVisit} />
+        <MyTravelStats myCountries={myCountries} languages={languages} wantCount={wantToVisit.length}/>
+      </Container>
     </div>
   );
 }

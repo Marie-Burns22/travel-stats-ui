@@ -6,14 +6,14 @@ export default function CountryInfo({country}) {
     return(
 
         <Card style={{ width: '18rem' }}>
-            <Card.Body>
+            <Card.Header>
                 {!country.name 
                 ?
-                <Card.Title>Select a Country</Card.Title>
+                <Card.Title>Select a Region and Country To See Its Info</Card.Title>
                 :
                 <Card.Title>{country.name}</Card.Title>
                 }
-            </Card.Body>
+            </Card.Header>
             <ListGroup className="list-group-flush">
                 <ListGroupItem>Languages: {!country.languages ? '' : country.languages.map(language => (
                     <li key={language.name}>{language.name}</li>
