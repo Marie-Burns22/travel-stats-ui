@@ -1,0 +1,25 @@
+import React from 'react';
+import { Card, ListGroup, ListGroupItem } from 'react-bootstrap';
+
+export default function CountryInfo({country}) {
+    
+    return(
+
+        <Card style={{ width: '18rem' }}>
+            <Card.Body>
+                {!country.name 
+                ?
+                <Card.Title>Select a Country</Card.Title>
+                :
+                <Card.Title>{country.name}</Card.Title>
+                }
+            </Card.Body>
+            <ListGroup className="list-group-flush">
+                <ListGroupItem>Languages: {!country.languages ? '' : country.languages.map(language => (
+                    <li key={language.name}>{language.name}</li>
+                ))} </ListGroupItem>
+
+            </ListGroup>
+        </Card>
+    )
+} 

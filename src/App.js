@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import axios from 'axios';
 import MyTravelStats from './MyTravelStats';
+import MyCountriesList from './MyCountriesList';
+import CountryInfo from './CountryInfo';
 // import './App.css';
 
 function App() {
@@ -44,13 +46,13 @@ function App() {
   }
 
   return (
-    <div className="App">
+    <div className="App container">
       <h1>Oh the places I've been!</h1>
 
       {/* Radio buttons to select region which triggers API call (uses region name in the URL) */}
       <Form>
           <Form.Group onChange={(event) => setRegion(event.target.id)}>
-          <Form.Label>Regions</Form.Label>
+          <Form.Label as="h3">Select a Region</Form.Label>
             <Form.Check as="input"
               type="radio"
               id="africa"
@@ -112,17 +114,11 @@ function App() {
         </Button>
 
       </Form>
-      {/* TODO: Need to add delete button to each country rendered in the lists. */}
-      <h1>My Countries</h1>
-        {myCountries.map(country => (
-          <p key={country.name}>{country.name}</p>
-        ))}
+      
+      <MyCountriesList myCountries={myCountries} wantToVisit={wantToVisit} />
+      <MyTravelStats myCountries={myCountries} languages={languages} wantCount={wantToVisit.length}/>
+      <CountryInfo country={selectedCountry} />
 
-        <h1>Places I Want To Go!</h1>
-        {wantToVisit.map(country => (
-          <p key={country.name}>{country.name}</p>
-        ))}
-        <MyTravelStats myCountries={myCountries} languages={languages} wantCount={wantToVisit.length}/>
     </div>
   );
 }
