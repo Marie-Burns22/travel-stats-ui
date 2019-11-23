@@ -4,7 +4,6 @@ import axios from 'axios';
 import MyTravelStats from './MyTravelStats';
 import MyCountriesList from './MyCountriesList';
 import CountryInfo from './CountryInfo';
-// import './App.css';
 
 function App() {
   const [countries, setCountries] = useState([]);
@@ -111,9 +110,10 @@ function App() {
               <Card.Header>Select a Country</Card.Header>
               <Form.Group controlId="countrySelect">
 
-                  <Form.Control as="select" onChange={handleChange}>
+                  <Form.Control as="select" onChange={handleChange} value={selectedCountry}>
+                    <option>Select a Country</option>
                     {countries.map(country => (
-                      <option key={country.name} name='country' value={country.name} >{country.name}</option>
+                      <option key={country.name} name='country'>{country.name}</option>
                     ))}
                   </Form.Control>
 
@@ -130,16 +130,18 @@ function App() {
         </Row>
         
             <Button 
-              variant='info' 
+              variant='info'
+              disabled={!selectedCountry.name ? true : false}
               onClick={addToMyCountries}>Add country to places I have been 
             </Button>
 
             <Button
               variant='success'
+              disabled={!selectedCountry.name ? true : false}
               onClick={() => setWantToVisit([...wantToVisit, selectedCountry])}>Add country to places I want to go
             </Button>
-        <MyCountriesList myCountries={myCountries} wantToVisit={wantToVisit} />
-        <MyTravelStats myCountries={myCountries} languages={languages} wantCount={wantToVisit.length}/>
+        <MyCountriesList myCountries={myCountries} wantToVisit={wantToVisit} onClick={() => setWantToVisit([...wantToVisit, selectedCountry])} selectedCountry={selectedCountry} />
+        <MyTravelStats myCountries={myCountries} languages={languages} wantCount={wantToVisit.length} />
       </Container>
     </div>
   );

@@ -1,5 +1,5 @@
 import React from 'react';
-import { CardGroup, Card, ListGroup, ListGroupItem } from 'react-bootstrap';
+import { CardGroup, Card, ListGroup, ListGroupItem, Button } from 'react-bootstrap';
 
 export default function MyCountriesList(props) {
     return(
@@ -22,6 +22,13 @@ export default function MyCountriesList(props) {
 
             <Card style={{ width: '18rem' }}>
                 <Card.Body>
+                    <Card.Header>
+                        <Button
+                            variant='success'
+                            disabled={!props.selectedCountry.name ? true : false}
+                            onClick={props.onClick}>Add country to places I want to go
+            </Button>
+                    </Card.Header>
                     <Card.Title>Where I Want To Go</Card.Title>
                     <Card.Text>
                         The purpose of travel is not the number of stamps in your passport, its the experiences and the people. Each place on the list represents people and places that have changed who you are.
