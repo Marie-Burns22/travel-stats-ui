@@ -5,8 +5,8 @@ export default function CountryInfo({country}) {
     
     return(
 
-        <Card style={{ width: '18rem' }}>
-            <Card.Header>
+        <Card>
+            <Card.Header as="h4">
                 {!country.name 
                 ?
                 <Card.Title>Select a Region and Country To See Its Info</Card.Title>

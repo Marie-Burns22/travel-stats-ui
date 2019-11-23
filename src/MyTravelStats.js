@@ -1,15 +1,17 @@
 import React, {Fragment} from 'react';
+import {Card, ListGroup} from 'react-bootstrap';
 
 
 export default function MyTravelStats(props){
    
     return(
-        <Fragment>
-            <h1>My Travel Stats</h1>
-            <h3>Total Countries Visited: {props.myCountries.length}</h3>
-            <h3>Total Languages Spoken in All Countries Visited: {props.languages.length}</h3>
-            <h3>Countries I want to visit: {props.wantCount}</h3>
-
-        </Fragment>
+        <Card>
+            <Card.Header bg="info" as="h4">My Travel Stats</Card.Header>
+            <ListGroup variant="flush">
+                <ListGroup.Item>Total Countries Visited: {props.myCountries.length}</ListGroup.Item>
+                <ListGroup.Item>Total Languages Spoken in All Countries Visited: {props.languages.length}</ListGroup.Item>
+                <ListGroup.Item>Countries I want to visit: {props.wantCount}</ListGroup.Item>
+            </ListGroup>
+        </Card>
     )
 }
