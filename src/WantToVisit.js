@@ -1,5 +1,5 @@
 import React from 'react';
-import {Card, ListGroup, ListGroupItem} from 'react-bootstrap'
+import {Card, ListGroup, ListGroupItem, Image} from 'react-bootstrap'
 
 export default function WantToVisit(props) {
     return(
@@ -12,7 +12,7 @@ export default function WantToVisit(props) {
             </Card.Body>
             <ListGroup className="list-group-flush">
                 {props.wantToVisit.map(country => (
-                    <ListGroupItem key={country.name}>{country.name}</ListGroupItem>
+                    <ListGroupItem key={country.name}><Image src={country.flag} style={{ height: "2em" }} thumbnail />{country.name}</ListGroupItem>
                     // <Card.Link href="#">Card Link</Card.Link>
                 ))}
             </ListGroup>
