@@ -14,7 +14,7 @@ function App() {
   const [selectedCountry, setSelectedCountry] = useState({});
   const [languages, setLanguages] = useState([]);
 
-  // useEffect hook calls API t0 get countries for a specific region based on region selected by user in form. The selection set state for region and the API call is triggered by changes to the region state. 
+  // useEffect hook calls API to get countries for a specific region based on region selected by user in form. The selection set state for region and the API call is triggered by changes to the region state. 
   useEffect(() => {
     const fetchData = async () => {
       const result = await axios(
@@ -47,8 +47,8 @@ function App() {
 
   return (
     <div>
-      <Jumbotron fluid>
-        <Container>
+      <Jumbotron style={{ backgroundImage: 'url("Myanmar.jpg")', backgroundSize: "cover"}} className="img-fluid" fluid>
+          <Container>
           <h1>Oh the places I've been!</h1>
           <p>
             So many places to visit in the world. Where have you been? Where do you want to go?
