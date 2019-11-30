@@ -3,7 +3,7 @@ import { Card, ListGroup, ListGroupItem, Image} from 'react-bootstrap';
 
 export default function MyCountriesList(props) {
     return(
-        // {/* TODO: Need to add delete button to each country rendered in the lists. */ }
+        // TODO: Need to add delete button to each country rendered in the lists. */ }
             <Card>
                 <Card.Body>
                     <Card.Title>Where I've Been</Card.Title>
@@ -14,7 +14,6 @@ export default function MyCountriesList(props) {
                 <ListGroup className="list-group-flush">
                     {props.myCountries.map(country => (
                         <ListGroupItem key={country.name}><Image src={country.flag} style={{height: "2em"}} thumbnail />{country.name}</ListGroupItem>
-                    // <Card.Link href="#">Card Link</Card.Link>
                     ))}
                 </ListGroup>
             </Card>

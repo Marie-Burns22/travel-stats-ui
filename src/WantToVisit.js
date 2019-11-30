@@ -13,7 +13,6 @@ export default function WantToVisit(props) {
             <ListGroup className="list-group-flush">
                 {props.wantToVisit.map(country => (
                     <ListGroupItem key={country.name}><Image src={country.flag} style={{ height: "2em" }} thumbnail />{country.name}</ListGroupItem>
-                    // <Card.Link href="#">Card Link</Card.Link>
                 ))}
             </ListGroup>
         </Card>

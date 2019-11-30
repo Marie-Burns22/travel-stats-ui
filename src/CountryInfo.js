@@ -4,7 +4,6 @@ import { Card, ListGroup, ListGroupItem, Image, Row, Col } from 'react-bootstrap
 export default function CountryInfo({country}) {
     
     return(
-
         <Card>
             <Card.Header as="h4">
                 {!country.name 
@@ -32,7 +31,6 @@ export default function CountryInfo({country}) {
                 ))} </ListGroupItem>
                 <ListGroupItem>Population: {!country.population ? '' : country.population}</ListGroupItem>
                 <ListGroupItem>Capital: {!country.capital ? '' : country.capital}</ListGroupItem>
-
             </ListGroup>
         </Card>
     )
