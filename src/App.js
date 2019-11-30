@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { Form, Button, Container, Row, Col, Jumbotron, Card, Toast } from 'react-bootstrap';
 import axios from 'axios';
 import MyTravelStats from './MyTravelStats';
-import MyCountriesList from './MyCountriesList';
+
 import CountryInfo from './CountryInfo';
-import WantToVisit from './WantToVisit';
+
+import CountryList from './CountryList';
 
 function App() {
   const [countries, setCountries] = useState([]);
@@ -69,16 +70,19 @@ function App() {
     return (foundInVisitedList || foundInWantedList) ? true : false;
   }
 
+  //TODO: when country is removed from visited list, also remove its languages from the language list.
   const removeFromList = (countryName, list) => {
-    console.log("countryName: ", countryName)
     let oldList = [...list];
     let index = oldList.findIndex(c => {
       return c.name === countryName;
     });
-    console.log("index: ", index);
     if (index !== -1) {
       oldList.splice(index, 1);
-      setWantToVisit(oldList);
+      if (list === wantToVisit) {
+        setWantToVisit(oldList);
+      } else {
+        setMyCountries(oldList);
+      }
     }
   }
 
@@ -158,8 +162,10 @@ function App() {
 
           <Col>
             <CountryInfo country={selectedCountry} />
+            <br />
           </Col>
         </Row>
+
         <Row>
           <Col>
             <Button 
@@ -194,14 +200,26 @@ function App() {
             </Toast>
           </Col>
         </Row>
+
         <Row>
           <Col>
-            <MyCountriesList myCountries={myCountries} />
+            <CountryList 
+              countries={myCountries} 
+              text="The purpose of travel is not the number of stamps in your passport, its the experiences and the people. Each place on the list represents people and places that have changed who you are."
+              title="Where I have been"
+              remove={removeFromList}
+              />
           </Col>
           <Col>
-            <WantToVisit wantToVisit={wantToVisit} remove={removeFromList}/>
+            <CountryList
+              countries={wantToVisit}
+              text="What are you curious about?"
+              title="Where I want to go"
+              remove={removeFromList}
+            />
           </Col>
         </Row>
+        <br />
         
         <MyTravelStats myCountries={myCountries} languages={languages} wantCount={wantToVisit.length} />
       </Container>

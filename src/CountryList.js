@@ -12,15 +12,16 @@ export default function CountryList(props) {
             </Card.Body>
             <ListGroup className="list-group-flush">
                 {props.countries.map(country => (
-                    <ListGroupItem 
+                    <ListGroupItem
+                        className="justify-content-between"
                         key={country.name}>
                         <Image 
                             src={country.flag} 
-                            style={{ height: "2em" }} 
+                            style={{ height: "2em", marginRight: "1em" }} 
                             thumbnail 
                         />
                         {country.name}
-                        <Button variant="secondary" size="sm" onClick={() => props.remove(country.name, props.countries)}>
+                        <Button variant="secondary" className="float-right" size="sm" onClick={() => props.remove(country.name, props.countries)}>
                             X
                         </Button>
                     </ListGroupItem>
