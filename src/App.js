@@ -41,21 +41,32 @@ function App() {
     setSelectedCountry(country);
   };
 
-  // when a country is added to list of myCountries, each language of the country is checked to see if it is on the language list and added if it is not.
   const addToLanguages = (selectedCountry) => {
     selectedCountry.languages.map(language => {
-      let found = languages.find(l => l === language.name);
+      let found = languages.find(l => l.name === language.name);
       if (!found) {
-        setLanguages(languages => [...languages, language.name])
+        let newLanguage = {name: language.name, count: 1};
+        setLanguages(languages => [...languages, newLanguage]);
+      } else {
+        found.count++
+        let index = languages.findIndex(l => l.name === found.name)
+        let newLanguages = [...languages];
+        newLanguages.splice(index, 1, found)
+        setLanguages(newLanguages)
       }
-    });
+    })
   }
+
   // called when button clicked. Adds selectedCountry to list if not already on a list.
   const addToMyCountries = () => {
     let onLists = checkLists();
-    onLists ? toggleShowA() : setMyCountries(myCountries => [...myCountries, selectedCountry]);
-    addToLanguages(selectedCountry);
+    if (onLists) {
+      toggleShowA()
+    } else {
+      setMyCountries(myCountries => [...myCountries, selectedCountry]);
+      addToLanguages(selectedCountry);
   }
+}
   
   // called when button clicked. Adds selectedCountry to list if not already on a list.
   const addToWantToVisit = () => {
