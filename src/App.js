@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Button, Container, Row, Col, Jumbotron, Card } from 'react-bootstrap';
+import { Form, Button, Container, Row, Col, Jumbotron, Card, Toast } from 'react-bootstrap';
 import axios from 'axios';
 import MyTravelStats from './MyTravelStats';
 import MyCountriesList from './MyCountriesList';
@@ -14,6 +14,12 @@ function App() {
   const [selectedCountry, setSelectedCountry] = useState({});
   const [languages, setLanguages] = useState([]);
 
+  // Toast(bootstrap component) toggled on when add button clicked to show if a country is alredy on a list
+  const [showA, setShowA] = useState(false);
+  const [showB, setShowB] = useState(false);
+  const toggleShowA = () => setShowA(!showA);
+  const toggleShowB = () => setShowB(!showB);
+
   // useEffect hook calls API to get countries for a specific region based on region selected by user in form. The selection set state for region and the API call is triggered by changes to the region state. 
   useEffect(() => {
     const fetchData = async () => {
@@ -25,24 +31,37 @@ function App() {
     fetchData();
   }, [region]);
 
-  //handleChange uses selection from form to find a country and set state for selectedCountry. Buttons at bottom of the form use the selectedCountry to add it to the myCountries state array or wantToVisit state array.
+  //handleChange uses selection from form to find a country and set state for selectedCountry. 
   function handleChange(e){
     const countryName = e.target.value;
     const country = countries.find(c => c.name === countryName);
     setSelectedCountry(country);
   };
 
-  // Add check to only add the language to the list if it is not already in the array.
+  // TODO: Add check to only add the language to the list if it is not already in the array.
   const addToLanguages = (selectedCountry) => {
-    console.log(selectedCountry.name)
+
     selectedCountry.languages.map(language => (
       setLanguages(languages => [...languages, language.name])
     ))
   }
 
   const addToMyCountries = () => {
-    setMyCountries(myCountries => [...myCountries, selectedCountry]);
+    let onLists = checkLists();
+    onLists ? toggleShowA() : setMyCountries(myCountries => [...myCountries, selectedCountry]);
     addToLanguages(selectedCountry);
+  }
+
+  const addToWantToVisit = () => {
+    let onLists = checkLists();
+    onLists ? toggleShowB() : setWantToVisit(wantToVisit=> [...wantToVisit, selectedCountry])
+  }
+  // Check to see if the selectedCountry is already on a list before adding it.
+  const checkLists = () => {
+    let selectedName = selectedCountry.name;
+    let foundInVisitedList = myCountries.find(c => c.name === selectedName);
+    let foundInWantedList = wantToVisit.find(c => c.name === selectedName);
+    return (foundInVisitedList || foundInWantedList) ? true : false;
   }
 
   return (
@@ -63,6 +82,7 @@ function App() {
             <Card>
                 <Form>
                   <Card.Header as="h4">Select a Region</Card.Header>
+                  
                   <Form.Group onChange={(event) => setRegion(event.target.id)}>
                     <Card.Body>
                       <Form.Check as="input"
@@ -71,7 +91,7 @@ function App() {
                         label="Africa"
                         name='regionRadios'
                         defaultChecked
-                        />
+                      />
                     
                       <Form.Check as="input"
                         type="radio"
@@ -114,9 +134,10 @@ function App() {
                       </Form.Control>
                   </Form.Group>
               </Form>
+
             </Card>
           </Col>
-          {/* Selection of countries rendered based on region selection. Selected country is saved to state as selectedCountry. Buttons use selectedCountry state to add country object to one of two lists. */}
+
           <Col>
             <CountryInfo country={selectedCountry} />
           </Col>
@@ -128,25 +149,42 @@ function App() {
               disabled={!selectedCountry.name ? true : false}
               onClick={addToMyCountries}>Add country to places I have been 
             </Button>
+            <Toast show={showA} onClose={toggleShowA}>
+              <Toast.Header>
+                <img
+                  className="rounded mr-2"
+                  alt=""
+                />
+                <strong className="mr-auto">{selectedCountry.name} is already on your list.</strong>
+              </Toast.Header>
+            </Toast>
           </Col>
           <Col>
             <Button
               variant='success'
               disabled={!selectedCountry.name ? true : false}
-              onClick={() => setWantToVisit([...wantToVisit, selectedCountry])}>Add country to places I want to go
+              onClick={addToWantToVisit}>Add country to places I want to go
             </Button>
+            <Toast show={showB} onClose={toggleShowB}>
+              <Toast.Header>
+              <img
+                className="rounded mr-2"
+                alt=""
+              />
+              <strong className="mr-auto">{selectedCountry.name} is already on your list.</strong>
+            </Toast.Header>
+            </Toast>
           </Col>
         </Row>
         <Row>
           <Col>
-            <MyCountriesList myCountries={myCountries}  />
+            <MyCountriesList myCountries={myCountries} />
           </Col>
           <Col>
-            <WantToVisit wantToVisit={wantToVisit} onClick={() => setWantToVisit([...wantToVisit, selectedCountry])} selectedCountry={selectedCountry}/>
+            <WantToVisit wantToVisit={wantToVisit} />
           </Col>
         </Row>
         
-
         <MyTravelStats myCountries={myCountries} languages={languages} wantCount={wantToVisit.length} />
       </Container>
     </div>
