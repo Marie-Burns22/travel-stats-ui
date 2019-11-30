@@ -33,6 +33,8 @@ function App() {
 
   //handleChange uses selection from form to find a country and set state for selectedCountry. 
   function handleChange(e){
+    setShowA(false);
+    setShowB(false);
     const countryName = e.target.value;
     const country = countries.find(c => c.name === countryName);
     setSelectedCountry(country);
@@ -47,13 +49,14 @@ function App() {
       }
     });
   }
-
+  // called when button clicked. Adds selectedCountry to list if not already on a list.
   const addToMyCountries = () => {
     let onLists = checkLists();
     onLists ? toggleShowA() : setMyCountries(myCountries => [...myCountries, selectedCountry]);
     addToLanguages(selectedCountry);
   }
-
+  
+  // called when button clicked. Adds selectedCountry to list if not already on a list.
   const addToWantToVisit = () => {
     let onLists = checkLists();
     onLists ? toggleShowB() : setWantToVisit(wantToVisit=> [...wantToVisit, selectedCountry])
@@ -64,6 +67,19 @@ function App() {
     let foundInVisitedList = myCountries.find(c => c.name === selectedName);
     let foundInWantedList = wantToVisit.find(c => c.name === selectedName);
     return (foundInVisitedList || foundInWantedList) ? true : false;
+  }
+
+  const removeFromList = (countryName, list) => {
+    console.log("countryName: ", countryName)
+    let oldList = [...list];
+    let index = oldList.findIndex(c => {
+      return c.name === countryName;
+    });
+    console.log("index: ", index);
+    if (index !== -1) {
+      oldList.splice(index, 1);
+      setWantToVisit(oldList);
+    }
   }
 
   return (
@@ -183,7 +199,7 @@ function App() {
             <MyCountriesList myCountries={myCountries} />
           </Col>
           <Col>
-            <WantToVisit wantToVisit={wantToVisit} />
+            <WantToVisit wantToVisit={wantToVisit} remove={removeFromList}/>
           </Col>
         </Row>
         
