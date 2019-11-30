@@ -38,19 +38,14 @@ function App() {
     setSelectedCountry(country);
   };
 
-  // TODO: Add check to only add the language to the list if it is not already in the array.
+  // when a country is added to list of myCountries, each language of the country is checked to see if it is on the language list and added if it is not.
   const addToLanguages = (selectedCountry) => {
-    selectedCountry.languages.map(language => (
-      checkLanguageList(language)
-    ));
-  }
-
-  const checkLanguageList = (language) => {
-    // let languageName = language.name
-    let found = languages.find(l => l === language.name);
-    if (!found) {
-      setLanguages(languages => [...languages, language.name])
-    }
+    selectedCountry.languages.map(language => {
+      let found = languages.find(l => l === language.name);
+      if (!found) {
+        setLanguages(languages => [...languages, language.name])
+      }
+    });
   }
 
   const addToMyCountries = () => {
