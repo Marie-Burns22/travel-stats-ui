@@ -41,20 +41,16 @@ function App() {
 
   const addToLanguages = (selectedCountry) => {
     let newLanguageList = [...languages]
-    selectedCountry.languages.map(language => {
-      let newLanguage;
-      let found;
-      found = languages.find(l => l.name === language.name);
-      console.log("language:", language, "found:", found)
-      if (found === undefined) {
-        newLanguage = { name: language.name, count: 1 };
+    selectedCountry.languages.forEach(language => {
+      let found = languages.find(l => l.name === language.name);
+      if (!found) {
+        let newLanguage = { name: language.name, count: 1 };
         newLanguageList.push(newLanguage);
       } else {
         found.count++
         let index = newLanguageList.findIndex(l => l.name === found.name);
         newLanguageList.splice(index, 1, found);
       }
-      return newLanguageList
     })
     setLanguages(newLanguageList);
   }
@@ -104,7 +100,7 @@ function App() {
 
   const removeLanguages = (languagesToRemove) => {
     let newList = [...languages];
-    languagesToRemove.map(language => {
+    languagesToRemove.forEach(language => {
       let foundLanguage = newList.find(l => l.name === language.name);
       foundLanguage.count--;
       let index = newList.findIndex(l => {
