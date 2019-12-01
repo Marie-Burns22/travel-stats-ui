@@ -2,9 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Form, Button, Container, Row, Col, Jumbotron, Card, Toast } from 'react-bootstrap';
 import axios from 'axios';
 import MyTravelStats from './MyTravelStats';
-
 import CountryInfo from './CountryInfo';
-
 import CountryList from './CountryList';
 
 function App() {
@@ -42,19 +40,23 @@ function App() {
   };
 
   const addToLanguages = (selectedCountry) => {
+    let newLanguageList = [...languages]
     selectedCountry.languages.map(language => {
-      let found = languages.find(l => l.name === language.name);
-      if (!found) {
-        let newLanguage = {name: language.name, count: 1};
-        setLanguages(languages => [...languages, newLanguage]);
+      let newLanguage;
+      let found;
+      found = languages.find(l => l.name === language.name);
+      console.log("language:", language, "found:", found)
+      if (found === undefined) {
+        newLanguage = { name: language.name, count: 1 };
+        newLanguageList.push(newLanguage);
       } else {
         found.count++
-        let index = languages.findIndex(l => l.name === found.name)
-        let newLanguages = [...languages];
-        newLanguages.splice(index, 1, found)
-        setLanguages(newLanguages)
+        let index = newLanguageList.findIndex(l => l.name === found.name);
+        newLanguageList.splice(index, 1, found);
       }
+      return newLanguageList
     })
+    setLanguages(newLanguageList);
   }
 
   // called when button clicked. Adds selectedCountry to list if not already on a list.
@@ -83,18 +85,38 @@ function App() {
 
   //TODO: when country is removed from visited list, also remove its languages from the language list.
   const removeFromList = (countryName, list) => {
-    let oldList = [...list];
-    let index = oldList.findIndex(c => {
+    let newList = [...list];
+    let index = newList.findIndex(c => {
       return c.name === countryName;
     });
+    let languagesToRemove = newList[index].languages;
+    console.log(languagesToRemove)
     if (index !== -1) {
-      oldList.splice(index, 1);
+      newList.splice(index, 1);
       if (list === wantToVisit) {
-        setWantToVisit(oldList);
+        setWantToVisit(newList);
       } else {
-        setMyCountries(oldList);
+        removeLanguages(languagesToRemove);
+        setMyCountries(newList);
       }
     }
+  }
+
+  const removeLanguages = (languagesToRemove) => {
+    let newList = [...languages];
+    languagesToRemove.map(language => {
+      let foundLanguage = newList.find(l => l.name === language.name);
+      foundLanguage.count--;
+      let index = newList.findIndex(l => {
+        return l.name === language.name
+      });
+      if (foundLanguage.count === 0) {
+        newList.splice(index, 1)
+      } else {
+        newList.splice(index, 1, foundLanguage)
+      }
+    })
+    setLanguages(newList)
   }
 
   return (
