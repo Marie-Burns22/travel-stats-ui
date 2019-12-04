@@ -146,7 +146,7 @@ function App() {
             <Button
               variant='info'
               disabled={!selectedCountry.name ? true : false}
-              onClick={addToMyCountries}>Add country to places I have been
+              onClick={addToMyCountries}>Add {selectedCountry.name} to places I have been
                     </Button>
             <Toast show={showA} onClose={toggleShowA}>
               <Toast.Header>
@@ -162,7 +162,7 @@ function App() {
             <Button
               variant='success'
               disabled={!selectedCountry.name ? true : false}
-              onClick={addToWantToVisit}>Add country to places I want to go
+              onClick={addToWantToVisit}>Add {selectedCountry.name} to places I want to go
                     </Button>
             <Toast show={showB} onClose={toggleShowB}>
               <Toast.Header>

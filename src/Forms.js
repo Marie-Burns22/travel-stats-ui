@@ -46,7 +46,7 @@ export default function Forms(props) {
                 </Form.Group>
 
                 <Form.Group controlId="countrySelect">
-                    <Form.Control as="select" onChange={props.handleChange} value={props.selectedCountry}>
+                    <Form.Control as="select" onChange={props.handleChange} value={props.selectedCountry.name}>
                         <option>Select a Country</option>
                         {props.countries.map(country => (
                             <option key={country.name} name='country'>{country.name}</option>
