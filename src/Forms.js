@@ -1,7 +1,8 @@
 import React from 'react';
-import {Form, Card} from 'react-bootstrap'
+import {Form, Card, Toast, Button} from 'react-bootstrap'
 
 export default function Forms(props) {
+
     return (
         <Form>
             <Card.Header as="h4">Select a Region</Card.Header>
@@ -53,6 +54,39 @@ export default function Forms(props) {
                             ))}
                     </Form.Control>
                 </Form.Group>
+
+                <Button
+                    variant='info'
+                    block
+                    disabled={!props.selectedCountry.name ? true : false}
+                    onClick={props.addToMyCountries}>Add {props.selectedCountry.name} to places I have been
+                </Button>
+
+                <Toast show={props.showA} onClose={props.toggleShowA}>
+                    <Toast.Header>
+                        <img
+                            className="rounded mr-2"
+                            alt=""
+                        />
+                        <strong className="mr-auto">{props.selectedCountry.name} is already on your list.</strong>
+                    </Toast.Header>
+                </Toast>
+
+                <Button
+                    variant='success'
+                    block
+                    disabled={!props.selectedCountry.name ? true : false}
+                    onClick={props.addToWantToVisit}>Add {props.selectedCountry.name} to places I want to go
+                </Button>
+                <Toast show={props.showB} onClose={props.toggleShowB}>
+                    <Toast.Header>
+                        <img
+                            className="rounded mr-2"
+                            alt=""
+                        />
+                        <strong className="mr-auto">{props.selectedCountry.name} is already on your list.</strong>
+                    </Toast.Header>
+                </Toast>
             </Card.Body>
         </Form>
     )

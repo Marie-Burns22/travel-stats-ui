@@ -3,9 +3,9 @@ import {Card, ListGroup, ListGroupItem, Image, Button} from 'react-bootstrap'
 
 export default function CountryList(props) {
     return(
-        <Card>
-            <Card.Body>
-                <Card.Title>{props.title}</Card.Title>
+        <Card border={props.border}>
+            <Card.Body >
+                <Card.Title >{props.title}</Card.Title>
                 <Card.Text>
                     {props.text}
                 </Card.Text>
@@ -21,7 +21,7 @@ export default function CountryList(props) {
                             thumbnail 
                         />
                         {country.name}
-                        <Button variant="secondary" className="float-right" size="sm" onClick={() => props.remove(country.name, props.countries)}>
+                        <Button variant="secondary" className="float-right" size="sm" style={{paddingRight: "1em"}} onClick={() => props.remove(country.name, props.countries)}>
                             X
                         </Button>
                     </ListGroupItem>

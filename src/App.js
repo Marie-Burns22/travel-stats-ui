@@ -1,5 +1,5 @@
 import React, { useState, useEffect, Fragment } from 'react';
-import { Button, Container, Row, Col, Jumbotron, Card, Toast } from 'react-bootstrap';
+import { Container, Row, Col, Jumbotron, Card} from 'react-bootstrap';
 import axios from 'axios';
 import MyTravelStats from './MyTravelStats';
 import CountryInfo from './CountryInfo';
@@ -19,7 +19,7 @@ function App() {
   const [showB, setShowB] = useState(false);
   const toggleShowA = () => setShowA(!showA);
   const toggleShowB = () => setShowB(!showB);
-
+  
   // useEffect hook calls API to get countries for a specific region based on region selected by user in form. The selection set state for region and the API call is triggered by changes to the region state. 
   useEffect(() => {
     const fetchData = async () => {
@@ -31,7 +31,7 @@ function App() {
     fetchData();
   }, [region]);
 
-  //handleChange uses selection from form to find a country and set state for selectedCountry. 
+  // handleChange uses selection from form to find a country and set state for selectedCountry. 
   function handleChange(e){
     setShowA(false);
     setShowB(false);
@@ -64,9 +64,9 @@ function App() {
     } else {
       setMyCountries(myCountries => [...myCountries, selectedCountry]);
       addToLanguages(selectedCountry);
+   }
   }
-}
-  
+
   // called when button clicked. Adds selectedCountry to list if not already on a list.
   const addToWantToVisit = () => {
     let onLists = checkLists();
@@ -131,50 +131,26 @@ function App() {
         <Row>
           <Col>
             <Card>
-              <Forms setRegion={setRegion} handleChange={handleChange} selectedCountry={selectedCountry} countries={countries}/>
+              <Forms 
+                setRegion={setRegion} 
+                handleChange={handleChange} 
+                selectedCountry={selectedCountry} 
+                countries={countries}
+                addToMyCountries={addToMyCountries}
+                addToWantToVisit={addToWantToVisit}
+                showA={showA}
+                showB={showB}
+                toggleShowA={toggleShowA}
+                toggleShowB={toggleShowB}
+                />
             </Card>
           </Col>
 
           <Col>
             <CountryInfo country={selectedCountry} />
-            <br />
           </Col>
         </Row>
-
-        <Row>
-          <Col>
-            <Button
-              variant='info'
-              disabled={!selectedCountry.name ? true : false}
-              onClick={addToMyCountries}>Add {selectedCountry.name} to places I have been
-                    </Button>
-            <Toast show={showA} onClose={toggleShowA}>
-              <Toast.Header>
-                <img
-                  className="rounded mr-2"
-                  alt=""
-                />
-                <strong className="mr-auto">{selectedCountry.name} is already on your list.</strong>
-              </Toast.Header>
-            </Toast>
-          </Col>
-          <Col>
-            <Button
-              variant='success'
-              disabled={!selectedCountry.name ? true : false}
-              onClick={addToWantToVisit}>Add {selectedCountry.name} to places I want to go
-                    </Button>
-            <Toast show={showB} onClose={toggleShowB}>
-              <Toast.Header>
-                <img
-                  className="rounded mr-2"
-                  alt=""
-                />
-                <strong className="mr-auto">{selectedCountry.name} is already on your list.</strong>
-              </Toast.Header>
-            </Toast>
-          </Col>
-        </Row>
+        <br />
 
         <Row>
           <Col>
@@ -183,6 +159,7 @@ function App() {
               text="The purpose of travel is not the number of stamps in your passport, its the experiences and the people. Each place on the list represents people and places that have changed who you are."
               title="Where I have been"
               remove={removeFromList}
+              border="info"
             />
           </Col>
           <Col>
@@ -191,12 +168,14 @@ function App() {
               text="What are you curious about?"
               title="Where I want to go"
               remove={removeFromList}
+              border="primary"
             />
           </Col>
         </Row>
         <br />
+        <MyTravelStats myCountries={myCountries} languages={languages} wantCount={wantToVisit.length} />
         </Container>
-      <MyTravelStats myCountries={myCountries} languages={languages} wantCount={wantToVisit.length} />
+        <br />
     </Fragment>
   );
 }
