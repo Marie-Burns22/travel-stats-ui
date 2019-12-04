@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { Form, Button, Container, Row, Col, Jumbotron, Card, Toast } from 'react-bootstrap';
+import React, { useState, useEffect, Fragment } from 'react';
+import { Button, Container, Row, Col, Jumbotron, Card, Toast } from 'react-bootstrap';
 import axios from 'axios';
 import MyTravelStats from './MyTravelStats';
 import CountryInfo from './CountryInfo';
 import CountryList from './CountryList';
+import Forms from './Forms';
 
 function App() {
   const [countries, setCountries] = useState([]);
@@ -79,7 +80,6 @@ function App() {
     return (foundInVisitedList || foundInWantedList) ? true : false;
   }
 
-  //TODO: when country is removed from visited list, also remove its languages from the language list.
   const removeFromList = (countryName, list) => {
     let newList = [...list];
     let index = newList.findIndex(c => {
@@ -116,7 +116,7 @@ function App() {
   }
 
   return (
-    <div>
+    <Fragment>
       <Jumbotron style={{ backgroundImage: 'url("Myanmar.jpg")', backgroundSize: "cover"}} className="img-fluid" fluid>
           <Container>
           <h1>Oh the places I've been!</h1>
@@ -124,68 +124,14 @@ function App() {
             So many places to visit in the world. Where have you been? Where do you want to go?
           </p>
         </Container>
-      </Jumbotron>
-        
+      </Jumbotron>  
+      
       <Container>
         {/* Radio buttons to select region which triggers API call (uses region name in the URL) */}
         <Row>
           <Col>
             <Card>
-                <Form>
-                  <Card.Header as="h4">Select a Region</Card.Header>
-                  
-                  <Form.Group onChange={(event) => setRegion(event.target.id)}>
-                    <Card.Body>
-                      <Form.Check as="input"
-                        type="radio"
-                        id="africa"
-                        label="Africa"
-                        name='regionRadios'
-                        defaultChecked
-                      />
-                    
-                      <Form.Check as="input"
-                        type="radio"
-                        id="americas"
-                        label="Americas"
-                        name='regionRadios'
-                      />
-
-                      <Form.Check as="input"
-                        type="radio"
-                        id="asia"
-                        label="Asia"
-                        name='regionRadios'
-                      />
-
-                      <Form.Check as="input"
-                        type="radio"
-                        id="europe"
-                        label="Europe"
-                        name='regionRadios'
-                      />
-
-                      <Form.Check as="input"
-                        type="radio"
-                        id="oceania"
-                        label="Oceania"
-                        name='regionRadios'
-                      />
-                  </Card.Body>
-                </Form.Group>
-              </Form>
-
-              <Form>
-                  <Form.Group controlId="countrySelect">
-                      <Form.Control as="select" onChange={handleChange} value={selectedCountry}>
-                        <option>Select a Country</option>
-                        {countries.map(country => (
-                          <option key={country.name} name='country'>{country.name}</option>
-                        ))}
-                      </Form.Control>
-                  </Form.Group>
-              </Form>
-
+              <Forms setRegion={setRegion} handleChange={handleChange} selectedCountry={selectedCountry} countries={countries}/>
             </Card>
           </Col>
 
@@ -197,11 +143,11 @@ function App() {
 
         <Row>
           <Col>
-            <Button 
+            <Button
               variant='info'
               disabled={!selectedCountry.name ? true : false}
-              onClick={addToMyCountries}>Add country to places I have been 
-            </Button>
+              onClick={addToMyCountries}>Add country to places I have been
+                    </Button>
             <Toast show={showA} onClose={toggleShowA}>
               <Toast.Header>
                 <img
@@ -217,27 +163,27 @@ function App() {
               variant='success'
               disabled={!selectedCountry.name ? true : false}
               onClick={addToWantToVisit}>Add country to places I want to go
-            </Button>
+                    </Button>
             <Toast show={showB} onClose={toggleShowB}>
               <Toast.Header>
-              <img
-                className="rounded mr-2"
-                alt=""
-              />
-              <strong className="mr-auto">{selectedCountry.name} is already on your list.</strong>
-            </Toast.Header>
+                <img
+                  className="rounded mr-2"
+                  alt=""
+                />
+                <strong className="mr-auto">{selectedCountry.name} is already on your list.</strong>
+              </Toast.Header>
             </Toast>
           </Col>
         </Row>
 
         <Row>
           <Col>
-            <CountryList 
-              countries={myCountries} 
+            <CountryList
+              countries={myCountries}
               text="The purpose of travel is not the number of stamps in your passport, its the experiences and the people. Each place on the list represents people and places that have changed who you are."
               title="Where I have been"
               remove={removeFromList}
-              />
+            />
           </Col>
           <Col>
             <CountryList
@@ -249,10 +195,9 @@ function App() {
           </Col>
         </Row>
         <br />
-        
-        <MyTravelStats myCountries={myCountries} languages={languages} wantCount={wantToVisit.length} />
-      </Container>
-    </div>
+        </Container>
+      <MyTravelStats myCountries={myCountries} languages={languages} wantCount={wantToVisit.length} />
+    </Fragment>
   );
 }
 
