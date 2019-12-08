@@ -40,15 +40,15 @@ function App() {
     setSelectedCountry(country);
   };
 
-  const addToLanguages = (selectedCountry) => {
+  const addToLanguages = (countryLanguages) => {
     let newLanguageList = [...languages]
-    selectedCountry.languages.forEach(language => {
+    countryLanguages.forEach(language => {
       let found = languages.find(l => l.name === language.name);
       if (!found) {
         let newLanguage = { name: language.name, count: 1 };
         newLanguageList.push(newLanguage);
       } else {
-        found.count++
+        found.count++;
         let index = newLanguageList.findIndex(l => l.name === found.name);
         newLanguageList.splice(index, 1, found);
       }
@@ -63,7 +63,7 @@ function App() {
       toggleShowA()
     } else {
       setMyCountries(myCountries => [...myCountries, selectedCountry]);
-      addToLanguages(selectedCountry);
+      addToLanguages(selectedCountry.languages);
    }
   }
 
@@ -82,11 +82,8 @@ function App() {
 
   const removeFromList = (countryName, list) => {
     let newList = [...list];
-    let index = newList.findIndex(c => {
-      return c.name === countryName;
-    });
+    let index = newList.findIndex(c => c.name === countryName);
     let languagesToRemove = newList[index].languages;
-    console.log(languagesToRemove)
     if (index !== -1) {
       newList.splice(index, 1);
       if (list === wantToVisit) {
@@ -103,9 +100,7 @@ function App() {
     languagesToRemove.forEach(language => {
       let foundLanguage = newList.find(l => l.name === language.name);
       foundLanguage.count--;
-      let index = newList.findIndex(l => {
-        return l.name === language.name
-      });
+      let index = newList.findIndex(l => l.name === language.name);
       if (foundLanguage.count === 0) {
         newList.splice(index, 1)
       } else {
