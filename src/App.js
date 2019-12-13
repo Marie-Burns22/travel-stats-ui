@@ -17,8 +17,10 @@ function App() {
   // Toast(bootstrap component) toggled on when add button clicked to show if a country is alredy on a list
   const [showA, setShowA] = useState(false);
   const [showB, setShowB] = useState(false);
+  const [showC, setShowC] = useState(false);
   const toggleShowA = () => setShowA(!showA);
   const toggleShowB = () => setShowB(!showB);
+  const toggleShowC = () => setShowC(!showC);
   
   // useEffect hook calls API to get countries for a specific region based on region selected by user in form. The selection set state for region and the API call is triggered by changes to the region state. 
   useEffect(() => {
@@ -35,6 +37,7 @@ function App() {
   function handleChange(e){
     setShowA(false);
     setShowB(false);
+    setShowC(false);
     const countryName = e.target.value;
     const country = countries.find(c => c.name === countryName);
     setSelectedCountry(country);
@@ -60,10 +63,11 @@ function App() {
   const addToMyCountries = () => {
     let onLists = checkLists();
     if (onLists) {
-      toggleShowA()
+      toggleShowA();
     } else {
       setMyCountries(myCountries => [...myCountries, selectedCountry]);
       addToLanguages(selectedCountry.languages);
+      toggleShowC();
    }
   }
   const moveList = (countryName, list) => {
@@ -76,7 +80,13 @@ function App() {
   // called when button clicked. Adds selectedCountry to list if not already on a list.
   const addToWantToVisit = () => {
     let onLists = checkLists();
-    onLists ? toggleShowB() : setWantToVisit(wantToVisit=> [...wantToVisit, selectedCountry])
+    if (onLists) {
+      toggleShowB();
+     } else {
+       setWantToVisit(wantToVisit=> [...wantToVisit, selectedCountry])
+       toggleShowC();
+
+    }
   }
   // Check to see if the selectedCountry is already on a list before adding it.
   const checkLists = () => {
@@ -141,8 +151,10 @@ function App() {
                 addToWantToVisit={addToWantToVisit}
                 showA={showA}
                 showB={showB}
+                showC={showC}
                 toggleShowA={toggleShowA}
                 toggleShowB={toggleShowB}
+                toggleShowC={toggleShowC}
                 />
             </Card>
           </Col>

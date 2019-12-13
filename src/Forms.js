@@ -55,6 +55,16 @@ export default function Forms(props) {
                     </Form.Control>
                 </Form.Group>
 
+                <Toast show={props.showC} onClose={props.toggleShowC}>
+                    <Toast.Header>
+                        <img
+                            className="rounded mr-2"
+                            alt=""
+                        />
+                        <strong className="mr-auto">{props.selectedCountry.name} added!</strong>
+                    </Toast.Header>
+                </Toast>
+
                 <Button
                     variant='info'
                     block
