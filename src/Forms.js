@@ -1,5 +1,7 @@
 import React from 'react';
-import {Form, Card, Toast, Button} from 'react-bootstrap'
+import {Form, Card} from 'react-bootstrap'
+import Toasts from './Toasts';
+import Buttons from './Buttons';
 
 export default function Forms(props) {
 
@@ -54,49 +56,28 @@ export default function Forms(props) {
                             ))}
                     </Form.Control>
                 </Form.Group>
-
-                <Toast show={props.showC} onClose={props.toggleShowC}>
-                    <Toast.Header>
-                        <img
-                            className="rounded mr-2"
-                            alt=""
-                        />
-                        <strong className="mr-auto">{props.selectedCountry.name} added!</strong>
-                    </Toast.Header>
-                </Toast>
-
-                <Button
-                    variant='info'
-                    block
-                    disabled={!props.selectedCountry.name ? true : false}
-                    onClick={props.addToMyCountries}>Add {props.selectedCountry.name} to places I have been
-                </Button>
-
-                <Toast show={props.showA} onClose={props.toggleShowA}>
-                    <Toast.Header>
-                        <img
-                            className="rounded mr-2"
-                            alt=""
-                        />
-                        <strong className="mr-auto">{props.selectedCountry.name} is already on your list.</strong>
-                    </Toast.Header>
-                </Toast>
-
-                <Button
-                    variant='success'
-                    block
-                    disabled={!props.selectedCountry.name ? true : false}
-                    onClick={props.addToWantToVisit}>Add {props.selectedCountry.name} to places I want to go
-                </Button>
-                <Toast show={props.showB} onClose={props.toggleShowB}>
-                    <Toast.Header>
-                        <img
-                            className="rounded mr-2"
-                            alt=""
-                        />
-                        <strong className="mr-auto">{props.selectedCountry.name} is already on your list.</strong>
-                    </Toast.Header>
-                </Toast>
+                
+               {(props.showA || props.showB || props.showC) 
+                ? 
+                <Toasts 
+                    selectedCountry={props.selectedCountry} 
+                    showA={props.showA}
+                    showB={props.showB}
+                    showC={props.showC}
+                    toggleShowA={props.toggleShowA}
+                    toggleShowB={props.toggleShowB}
+                    toggleShowC={props.toggleShowC}
+                
+                /> 
+                : 
+                <Buttons 
+                    selectedCountry={props.selectedCountry}
+                    addToMyCountries={props.addToMyCountries}
+                    addToWantToVisit={props.addToWantToVisit} 
+                />
+                }
+                
+                
             </Card.Body>
         </Form>
     )

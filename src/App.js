@@ -168,21 +168,20 @@ function App() {
         <Row>
           <Col>
             <CountryList
+              bg="info"
               countries={myCountries}
               text="The purpose of travel is not the number of stamps in your passport, its the experiences and the people. Each place on the list represents people and places that have changed who you are."
               title="Where I have been"
               remove={removeFromList}
-              border="info"
             />
           </Col>
           <Col>
             <CountryList
+              bg="success"
               countries={wantToVisit}
               text="What are you curious about?"
               title="Where I want to go"
               remove={removeFromList}
-              border="primary"
-              name="want"
               moveList={moveList}
             />
           </Col>
