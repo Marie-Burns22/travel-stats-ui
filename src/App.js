@@ -183,6 +183,7 @@ function App() {
               title="Where I want to go"
               remove={removeFromList}
               moveList={moveList}
+              name="want"
             />
           </Col>
         </Row>
