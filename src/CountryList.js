@@ -21,9 +21,24 @@ export default function CountryList(props) {
                             thumbnail 
                         />
                         {country.name}
-                        <Button variant="secondary" className="float-right" size="sm" style={{paddingRight: "1em"}} onClick={() => props.remove(country.name, props.countries)}>
+                        <Button 
+                            variant="secondary" 
+                            className="float-right" 
+                            size="sm" style={{paddingRight: "1em"}} 
+                            onClick={() => props.remove(country.name, props.countries)}
+                        >
                             X
                         </Button>
+                        {props.name === "want" ? 
+                            <Button 
+                                className="float-right" 
+                                size="sm" 
+                                style={{ paddingRight: "1em" }}
+                                onClick={() => props.moveList(country.name, props.countries)}
+                            >
+                                I went!
+                            </Button> 
+                        : null}
                     </ListGroupItem>
                 ))}
             </ListGroup>

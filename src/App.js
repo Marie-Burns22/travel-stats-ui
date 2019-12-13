@@ -66,6 +66,12 @@ function App() {
       addToLanguages(selectedCountry.languages);
    }
   }
+  const moveList = (countryName, list) => {
+      let moveCountry = wantToVisit.find(c => c.name === countryName)
+      removeFromList(countryName, list)
+      setMyCountries(myCountries => [...myCountries, moveCountry]);
+      addToLanguages(moveCountry.languages);
+  }
 
   // called when button clicked. Adds selectedCountry to list if not already on a list.
   const addToWantToVisit = () => {
@@ -164,6 +170,8 @@ function App() {
               title="Where I want to go"
               remove={removeFromList}
               border="primary"
+              name="want"
+              moveList={moveList}
             />
           </Col>
         </Row>
