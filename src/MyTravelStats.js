@@ -10,7 +10,7 @@ export default function MyTravelStats(props){
 
    
     return(
-        <Card>
+        <Card style={{ marginTop: "1em" }}>
             <Card.Header bg="info" as="h4">My Travel Stats</Card.Header>
             <ListGroup variant="flush">
                 <ListGroup.Item>Total Countries Visited: {props.myCountries.length}</ListGroup.Item>

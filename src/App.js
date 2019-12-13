@@ -140,8 +140,8 @@ function App() {
       <Container>
         {/* Radio buttons to select region which triggers API call (uses region name in the URL) */}
         <Row>
-          <Col>
-            <Card>
+          <Col sm>
+            <Card style={{ marginTop: "1em" }}>
               <Forms 
                 setRegion={setRegion} 
                 handleChange={handleChange} 
@@ -159,14 +159,13 @@ function App() {
             </Card>
           </Col>
 
-          <Col>
+          <Col sm>
             <CountryInfo country={selectedCountry} />
           </Col>
         </Row>
-        <br />
 
         <Row>
-          <Col>
+          <Col sm>
             <CountryList
               bg="info"
               countries={myCountries}
@@ -175,7 +174,8 @@ function App() {
               remove={removeFromList}
             />
           </Col>
-          <Col>
+
+          <Col sm>
             <CountryList
               bg="success"
               countries={wantToVisit}
@@ -187,10 +187,10 @@ function App() {
             />
           </Col>
         </Row>
-        <br />
+
         <MyTravelStats myCountries={myCountries} languages={languages} wantCount={wantToVisit.length} />
-        </Container>
-        <br />
+       </Container>
+
     </Fragment>
   );
 }

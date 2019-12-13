@@ -4,7 +4,7 @@ import { Card, ListGroup, ListGroupItem, Image, Row, Col } from 'react-bootstrap
 export default function CountryInfo({country}) {
     
     return(
-        <Card>
+        <Card style={{ marginTop: "1em" }}>
             <Card.Header as="h4">
                 {!country.name 
                 ?

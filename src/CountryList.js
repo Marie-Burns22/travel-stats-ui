@@ -3,7 +3,7 @@ import {Card, ListGroup, ListGroupItem, Image, Button} from 'react-bootstrap'
 
 export default function CountryList(props) {
     return(
-        <Card bg={props.bg}>
+        <Card bg={props.bg} style={{marginTop: "1em"}}>
             <Card.Header as="h4">{props.title}</Card.Header>
 
             <Card.Body >
