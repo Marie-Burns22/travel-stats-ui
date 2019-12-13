@@ -25,7 +25,7 @@ export default function CountryList(props) {
                         <Button 
                             variant="secondary" 
                             className="float-right" 
-                            size="sm" style={{paddingRight: "1em"}} 
+                            size="sm" style={{marginRight: "1em"}} 
                             onClick={() => props.remove(country.name, props.countries)}
                         >
                             X
@@ -34,7 +34,7 @@ export default function CountryList(props) {
                             <Button 
                                 className="float-right" 
                                 size="sm" 
-                                style={{ paddingRight: "1em" }}
+                                style={{ marginRight: "1em" }}
                                 onClick={() => props.moveList(country.name, props.countries)}
                             >
                                 I went!
