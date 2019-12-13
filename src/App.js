@@ -188,7 +188,11 @@ function App() {
           </Col>
         </Row>
 
-        <MyTravelStats myCountries={myCountries} languages={languages} wantCount={wantToVisit.length} />
+        <MyTravelStats 
+            myCountries={myCountries} 
+            languages={languages} 
+            wantCount={wantToVisit.length} 
+        />
        </Container>
 
     </Fragment>
