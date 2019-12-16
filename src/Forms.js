@@ -56,18 +56,15 @@ export default function Forms(props) {
                             ))}
                     </Form.Control>
                 </Form.Group>
-                
-               {(props.showA || props.showB || props.showC) 
+
+               {(props.showAddError || props.showAdded) 
                 ? 
                 <Toasts 
                     selectedCountry={props.selectedCountry} 
-                    showA={props.showA}
-                    showB={props.showB}
-                    showC={props.showC}
-                    toggleShowA={props.toggleShowA}
-                    toggleShowB={props.toggleShowB}
-                    toggleShowC={props.toggleShowC}
-                
+                    showAddError={props.showAddError}
+                    showAdded={props.showAdded}
+                    toggleShowAddError={props.toggleShowAddError}
+                    toggleShowAdded={props.toggleShowAdded}
                 /> 
                 : 
                 <Buttons 
@@ -76,8 +73,6 @@ export default function Forms(props) {
                     addToWantToVisit={props.addToWantToVisit} 
                 />
                 }
-                
-                
             </Card.Body>
         </Form>
     )

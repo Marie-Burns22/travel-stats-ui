@@ -15,12 +15,10 @@ function App() {
   const [languages, setLanguages] = useState([]);
 
   // Toast(bootstrap component) toggled on when add button clicked to show if a country is alredy on a list
-  const [showA, setShowA] = useState(false);
-  const [showB, setShowB] = useState(false);
-  const [showC, setShowC] = useState(false);
-  const toggleShowA = () => setShowA(!showA);
-  const toggleShowB = () => setShowB(!showB);
-  const toggleShowC = () => setShowC(!showC);
+  const [showAddError, setShowAddError] = useState(false);
+  const [showAdded, setShowAdded] = useState(false);
+  const toggleShowAddError = () => setShowAddError(!showAddError);
+  const toggleShowAdded = () => setShowAdded(!showAdded);
   
   // useEffect hook calls API to get countries for a specific region based on region selected by user in form. The selection set state for region and the API call is triggered by changes to the region state. 
   useEffect(() => {
@@ -35,9 +33,8 @@ function App() {
 
   // handleChange uses selection from form to find a country and set state for selectedCountry. 
   function handleChange(e){
-    setShowA(false);
-    setShowB(false);
-    setShowC(false);
+    setShowAddError(false);
+    setShowAdded(false);
     const countryName = e.target.value;
     const country = countries.find(c => c.name === countryName);
     setSelectedCountry(country);
@@ -63,11 +60,11 @@ function App() {
   const addToMyCountries = () => {
     let onLists = checkLists();
     if (onLists) {
-      toggleShowA();
+      toggleShowAddError();
     } else {
       setMyCountries(myCountries => [...myCountries, selectedCountry]);
       addToLanguages(selectedCountry.languages);
-      toggleShowC();
+      toggleShowAdded();
    }
   }
   const moveList = (countryName, list) => {
@@ -81,10 +78,10 @@ function App() {
   const addToWantToVisit = () => {
     let onLists = checkLists();
     if (onLists) {
-      toggleShowB();
+      toggleShowAddError();
      } else {
        setWantToVisit(wantToVisit=> [...wantToVisit, selectedCountry])
-       toggleShowC();
+       toggleShowAdded();
 
     }
   }
@@ -149,12 +146,10 @@ function App() {
                 countries={countries}
                 addToMyCountries={addToMyCountries}
                 addToWantToVisit={addToWantToVisit}
-                showA={showA}
-                showB={showB}
-                showC={showC}
-                toggleShowA={toggleShowA}
-                toggleShowB={toggleShowB}
-                toggleShowC={toggleShowC}
+                showAddError={showAddError}
+                showAdded={showAdded}
+                toggleShowAddError={toggleShowAddError}
+                toggleShowAdded={toggleShowAdded}
                 />
             </Card>
           </Col>
