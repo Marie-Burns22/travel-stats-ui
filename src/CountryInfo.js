@@ -3,6 +3,10 @@ import { Card, ListGroup, ListGroupItem, Image, Row, Col } from 'react-bootstrap
 
 export default function CountryInfo({country}) {
     
+    function formatNumber(num) {
+        return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+    }
+
     return(
         <Card style={{ marginTop: "1em" }}>
             <Card.Header as="h4">
@@ -29,7 +33,7 @@ export default function CountryInfo({country}) {
                 <ListGroupItem>Currencies: {!country.currencies ? '' : country.currencies.map(c => (
                     <li key={c.name}>{c.name}</li>
                 ))} </ListGroupItem>
-                <ListGroupItem>Population: {!country.population ? '' : country.population}</ListGroupItem>
+                <ListGroupItem>Population: {!country.population ? '' : formatNumber(country.population)}</ListGroupItem>
                 <ListGroupItem>Capital: {!country.capital ? '' : country.capital}</ListGroupItem>
             </ListGroup>
         </Card>
