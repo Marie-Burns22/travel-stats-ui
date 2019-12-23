@@ -1,10 +1,11 @@
 import React, { useState, useEffect, Fragment } from 'react';
-import { Container, Row, Col, Jumbotron, Card} from 'react-bootstrap';
+import { Container, Row, Col, Card} from 'react-bootstrap';
 import axios from 'axios';
 import MyTravelStats from './MyTravelStats';
 import CountryInfo from './CountryInfo';
 import CountryList from './CountryList';
 import Forms from './Forms';
+import Jumbo from './Jumbo';
 
 function App() {
   const [countries, setCountries] = useState([]);
@@ -125,14 +126,7 @@ function App() {
 
   return (
     <Fragment>
-      <Jumbotron style={{ backgroundImage: 'url("Myanmar.jpg")', backgroundSize: "cover"}} className="img-fluid" fluid>
-          <Container>
-          <h1>Oh the places I've been!</h1>
-          <p>
-            So many places to visit in the world. Where have you been? Where do you want to go?
-          </p>
-        </Container>
-      </Jumbotron>  
+      <Jumbo />
       
       <Container>
         {/* Radio buttons to select region which triggers API call (uses region name in the URL) */}
