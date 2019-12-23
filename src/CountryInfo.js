@@ -8,13 +8,13 @@ export default function CountryInfo({country}) {
     }
 
     return(
-        <Card style={{ marginTop: "1em" }}>
+        <Card style={{ marginTop: "1em" }} bg="success">
             <Card.Header as="h4">
                 {!country.name 
                 ?
-                <Card.Title>Select a Region and Country To See Its Info</Card.Title>
+                <Card.Title as="h4">Select a Region and Country To See Its Info</Card.Title>
                 :
-                    <Card.Title className="justify-content-between">
+                    <Card.Title className="justify-content-between" as="h4">
                         <Row>
                         <Col>
                             {country.name} 
@@ -26,13 +26,14 @@ export default function CountryInfo({country}) {
                     </Card.Title>
                 }
             </Card.Header>
+
             <ListGroup className="list-group-flush">
-                <ListGroupItem>Languages: {!country.languages ? '' : country.languages.map(language => (
+                <ListGroupItem >Languages: {!country.languages ? '' : country.languages.map(language => (
                     <li key={language.name}>{language.name}</li>
-                ))} </ListGroupItem>
+                    ))} </ListGroupItem>
                 <ListGroupItem>Currencies: {!country.currencies ? '' : country.currencies.map(c => (
                     <li key={c.name}>{c.name}</li>
-                ))} </ListGroupItem>
+                    ))} </ListGroupItem>
                 <ListGroupItem>Population: {!country.population ? '' : formatNumber(country.population)}</ListGroupItem>
                 <ListGroupItem>Capital: {!country.capital ? '' : country.capital}</ListGroupItem>
             </ListGroup>

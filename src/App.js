@@ -156,7 +156,7 @@ function App() {
         <Row>
           <Col sm>
             <CountryList
-              bg="info"
+              bg="primary"
               countries={myCountries}
               text="The purpose of travel is not the number of stamps in your passport, its the experiences and the people. Each place on the list represents people and places that have changed who you are."
               title="Where I have been"
@@ -166,7 +166,8 @@ function App() {
 
           <Col sm>
             <CountryList
-              bg="success"
+              bg="info"
+              variant="wantToVisit"
               countries={wantToVisit}
               text="What are you curious about?"
               title="Where I want to go"

@@ -7,6 +7,7 @@ export default function Forms(props) {
 
     return (
         <Form>
+            <Card bg="warning" text="white">
             <Card.Header as="h4">Select a Region</Card.Header>
             {/* Radio buttons to select region which triggers API call (uses region name in the URL) */}
             <Card.Body>
@@ -74,6 +75,7 @@ export default function Forms(props) {
                 />
                 }
             </Card.Body>
+            </Card>
         </Form>
     )
 }

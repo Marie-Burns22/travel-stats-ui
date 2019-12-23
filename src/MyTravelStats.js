@@ -29,7 +29,7 @@ export default function MyTravelStats(props){
     
 
     return(
-        <Card style={{ marginTop: "1em" }}>
+        <Card bg="success" style={{ marginTop: "1em", marginBotton: "2em", paddingBotton: "2em" }}>
             <Card.Header bg="info" as="h4">My Travel Stats</Card.Header>
             <ListGroup variant="flush">
                 <ListGroup.Item><strong>Total Countries Visited:</strong> {props.myCountries.length}

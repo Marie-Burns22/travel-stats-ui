@@ -1,5 +1,5 @@
 import React from 'react';
-import {Card, ListGroup, ListGroupItem, Image, Button} from 'react-bootstrap'
+import {Card, ListGroup, ListGroupItem, Image, Button} from 'react-bootstrap';
 
 export default function CountryList(props) {
     return(
@@ -23,7 +23,7 @@ export default function CountryList(props) {
                         />
                         {country.name}
                         <Button 
-                            variant="secondary" 
+                            variant="danger" 
                             className="float-right" 
                             size="sm" style={{marginRight: "1em"}} 
                             onClick={() => props.remove(country.name, props.countries)}
