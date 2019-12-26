@@ -15,7 +15,8 @@ export default function CountryList(props) {
                 {props.countries.map(country => (
                     <ListGroupItem
                         className="justify-content-between"
-                        key={country.name}>
+                        key={country.name}
+                        onClick={() => props.selectCountryFromList(country.name)}>
                         <Image 
                             src={country.flag} 
                             style={{ height: "2em", marginRight: "1em" }} 

@@ -41,6 +41,11 @@ function App() {
     setSelectedCountry(country);
   };
 
+  const selectCountryFromList = (countryName) => {
+    const country = countries.find(c => c.name === countryName);
+    setSelectedCountry(country);
+  }
+
   const addToLanguages = (countryLanguages) => {
     let newLanguageList = [...languages]
     countryLanguages.forEach(language => {
@@ -83,7 +88,6 @@ function App() {
      } else {
        setWantToVisit(wantToVisit=> [...wantToVisit, selectedCountry])
        toggleShowAdded();
-
     }
   }
   // Check to see if the selectedCountry is already on a list before adding it.
@@ -127,7 +131,6 @@ function App() {
   return (
     <Fragment>
       <Jumbo />
-      
       <Container>
         {/* Radio buttons to select region which triggers API call (uses region name in the URL) */}
         <Row>
@@ -165,19 +168,19 @@ function App() {
               text="The purpose of travel is not the number of stamps in your passport, its the experiences and the people. Each place on the list represents people and places that have changed who you are."
               title="Where I have been"
               remove={removeFromList}
+              selectCountryFromList={selectCountryFromList}
             />
           </Col>
 
           <Col sm>
             <CountryList
               bg="info"
-              variant="wantToVisit"
               countries={wantToVisit}
               text="What are you curious about?"
               title="Where I want to go"
               remove={removeFromList}
               moveList={moveList}
-              name="want"
+              selectCountryFromList={selectCountryFromList}
             />
           </Col>
         </Row>
@@ -188,7 +191,6 @@ function App() {
             wantCount={wantToVisit.length} 
         />
        </Container>
-
     </Fragment>
   );
 }
