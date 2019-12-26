@@ -28,14 +28,15 @@ export default function CountryInfo({country}) {
             </Card.Header>
 
             <ListGroup className="list-group-flush">
+                <ListGroupItem>Capital: {!country.capital ? '' : country.capital}</ListGroupItem>
+                <ListGroupItem>Demonym: {!country.demonym ? '' : country.demonym}</ListGroupItem>
+                <ListGroupItem>Population: {!country.population ? '' : formatNumber(country.population)}</ListGroupItem>
                 <ListGroupItem >Languages: {!country.languages ? '' : country.languages.map(language => (
                     <li key={language.name}>{language.name}</li>
                     ))} </ListGroupItem>
                 <ListGroupItem>Currencies: {!country.currencies ? '' : country.currencies.map(c => (
                     <li key={c.name}>{c.name}</li>
                     ))} </ListGroupItem>
-                <ListGroupItem>Population: {!country.population ? '' : formatNumber(country.population)}</ListGroupItem>
-                <ListGroupItem>Capital: {!country.capital ? '' : country.capital}</ListGroupItem>
                 <ListGroupItem>Borders: {!country.borders ? '' : country.borders.join(", ")}</ListGroupItem>
             </ListGroup>
         </Card>
