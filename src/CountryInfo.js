@@ -36,6 +36,7 @@ export default function CountryInfo({country}) {
                     ))} </ListGroupItem>
                 <ListGroupItem>Population: {!country.population ? '' : formatNumber(country.population)}</ListGroupItem>
                 <ListGroupItem>Capital: {!country.capital ? '' : country.capital}</ListGroupItem>
+                <ListGroupItem>Borders: {!country.borders ? '' : country.borders.join(", ")}</ListGroupItem>
             </ListGroup>
         </Card>
     )
