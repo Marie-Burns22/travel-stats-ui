@@ -147,10 +147,14 @@ function App() {
                 />
             </Card>
           </Col>
-
-          <Col sm>
-            <CountryInfo country={selectedCountry} />
-          </Col>
+            {!selectedCountry.name 
+            ? 
+            null 
+            : 
+            <Col sm>
+              <CountryInfo country={selectedCountry} /> 
+            </Col>
+            }
         </Row>
 
         <Row>
