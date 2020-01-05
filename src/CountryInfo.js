@@ -12,7 +12,7 @@ export default function CountryInfo({country}) {
             <Card.Header as="h4">
                 <Card.Title className="justify-content-between" as="h4">
                     <Row>
-                    <Col>
+                    <Col id="countryName">
                         {country.name} 
                     </Col>
                     <Col>
